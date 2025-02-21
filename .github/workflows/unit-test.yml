@@ -1,0 +1,30 @@
+name: "🧪 unit-test"
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened        # When PR is first created
+      - synchronize   # When new commits are pushed to the PR
+      - reopened      # When a closed PR is reopened
+
+jobs:
+  release:
+    name: 🧪 unit-test
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 20
+        registry-url: https://registry.npmjs.org
+    - name: Install react
+      run: yarn add react@18.2.0 -D
+    - name: Install react-native
+      run: yarn add react-native@0.73.1 -D
+    - name: Install dependencies
+      run: yarn install
+    - name: Test
+      run: yarn test
