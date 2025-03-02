@@ -48,6 +48,7 @@ export const Modal = (props: ModalProps) => {
             outputRange: [0, overlayOpacity],
         }),
     };
+    
     const contentAnimatedStyle = {
         transform: [
             {

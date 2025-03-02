@@ -1,32 +1,30 @@
-import type { LimitType } from "../components/DurationScroll/types";
+import type { LimitType } from "../components/InfinitePicker/types";
 
-export const getAdjustedLimit = (
-    limit: LimitType | undefined,
-    numberOfItems: number,
-    interval: number
-): {
-    max: number;
-    min: number;
-} => {
-    const maxValue = (numberOfItems - 1) * interval;
+export const getAdjustedLimit = (variables: {
+    limit: LimitType | undefined;
+    numberOfItems: number;
+}) => {
+    const { limit, numberOfItems } = variables;
 
-    if (!limit || (!limit.max && !limit.min)) {
+    const maxIndex = numberOfItems - 1;
+
+    if (!limit || (!limit.maxIndex && !limit.minIndex)) {
         return {
-            max: maxValue,
+            max: maxIndex,
             min: 0,
         };
     }
 
     // guard against limits that are out of bounds
-    const adjustedMaxLimit = limit.max
-        ? Math.min(limit.max, maxValue)
-        : maxValue;
-    const adjustedMinLimit = limit.min ? Math.max(limit.min, 0) : 0;
+    const adjustedMaxLimit = limit.maxIndex
+        ? Math.min(limit.maxIndex, maxIndex)
+        : maxIndex;
+    const adjustedMinLimit = limit.minIndex ? Math.max(limit.minIndex, 0) : 0;
 
     // guard against invalid limits
     if (adjustedMaxLimit < adjustedMinLimit) {
         return {
-            max: maxValue,
+            max: maxIndex,
             min: 0,
         };
     }

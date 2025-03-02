@@ -1,17 +1,17 @@
-# React Native Timer Picker ⏰🕰️⏳
+# React Native Infinite Picker 🎰🤏⏰
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge)]()
 ![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg?style=for-the-badge&colorB=191A17)
 [![Version](https://img.shields.io/npm/v/react-native-infinite-picker.svg?style=for-the-badge)](https://www.npmjs.com/package/react-native-infinite-picker)
 [![npm](https://img.shields.io/npm/dt/react-native-infinite-picker.svg?style=for-the-badge)](https://www.npmjs.com/package/react-native-infinite-picker)
 
-A simple, flexible, performant duration picker component for React Native apps 🔥
+A performant, flexible, infinite-scroll picker component for React Native apps 🔥
 
-Great for timers, alarms and duration inputs.
+Great for any kind of select input, such as timers, alarms, duration inputs or date inputs.
 
 Works with Expo and bare React Native apps ✅
 
-Includes iOS-style haptic and audio feedback 🍏
+Includes haptic and audio feedback for a native feel 🚀
 
 -   [Demos 📱](#demos-)
 -   [Peer Dependencies 👶](#peer-dependencies-)

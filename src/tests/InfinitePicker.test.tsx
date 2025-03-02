@@ -2,10 +2,10 @@ import React from "react";
 
 import { render } from "@testing-library/react-native";
 
-import DurationScroll from "../components/DurationScroll";
-import type { generateStyles } from "../components/TimerPicker/styles";
+import InfinitePicker from "../components/InfinitePicker";
+import type { generateStyles } from "../components/InfinitePicker/styles";
 
-describe("DurationScroll", () => {
+describe("InfinitePicker", () => {
     const onDurationChangeMock = jest.fn();
     const emptyStyles = {
         pickerContainer: {},
@@ -22,7 +22,7 @@ describe("DurationScroll", () => {
 
     it("renders without crashing", () => {
         const { getByTestId } = render(
-            <DurationScroll
+            <InfinitePicker
                 aggressivelyGetLatestDuration={false}
                 interval={1}
                 maximumValue={1}
@@ -39,7 +39,7 @@ describe("DurationScroll", () => {
 
     it("renders the correct number of items", () => {
         const { getAllByTestId } = render(
-            <DurationScroll
+            <InfinitePicker
                 aggressivelyGetLatestDuration={false}
                 interval={1}
                 maximumValue={23}
@@ -55,7 +55,7 @@ describe("DurationScroll", () => {
 
     it("renders the label if provided", () => {
         const { getByText } = render(
-            <DurationScroll
+            <InfinitePicker
                 aggressivelyGetLatestDuration={false}
                 interval={1}
                 label="Duration"

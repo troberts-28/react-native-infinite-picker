@@ -1,23 +1,37 @@
+import type { ItemValue, PickerItem } from "../components/InfinitePicker/types";
+
 export const getInitialScrollIndex = (variables: {
     disableInfiniteScroll: boolean;
-    interval: number;
+    initialValue: ItemValue | undefined;
     numberOfItems: number;
     padWithNItems: number;
-    repeatNumbersNTimes: number;
-    value: number;
+    pickerItems: PickerItem[];
+    repeatValuesNTimes: number;
 }) => {
     const {
         disableInfiniteScroll,
-        interval,
+        initialValue,
         numberOfItems,
         padWithNItems,
-        repeatNumbersNTimes,
-        value,
+        pickerItems,
+        repeatValuesNTimes,
     } = variables;
 
+    let index = 0;
+
+    if (initialValue !== undefined) {
+        const indexOfInitialValue = pickerItems.findIndex(
+            (item) => item.value === initialValue
+        );
+
+        if (indexOfInitialValue !== -1) {
+            index = indexOfInitialValue;
+        }
+    }
+
     return Math.max(
-        numberOfItems * Math.floor(repeatNumbersNTimes / 2) +
-            ((value / interval + numberOfItems) % numberOfItems) -
+        numberOfItems * Math.floor(repeatValuesNTimes / 2) +
+            ((index + numberOfItems) % numberOfItems) -
             (!disableInfiniteScroll ? padWithNItems : 0),
         0
     );

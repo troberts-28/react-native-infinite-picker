@@ -26,7 +26,7 @@ import {
 } from "react-native";
 import type { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 
-import { TimerPicker, TimerPickerModal } from "../../src";
+import { InfinitePicker } from "../../src";
 
 import { formatTime } from "./utils/formatTime";
 
@@ -72,143 +72,158 @@ export default function App() {
         [screenWidth]
     );
 
-    const renderExample1 = useMemo(() => {
-        return (
-            <View
-                style={[
-                    styles.container,
-                    styles.page1Container,
-                    { width: screenWidth },
-                ]}>
-                <Text style={styles.textDark}>
-                    {alarmStringExample1 !== null
-                        ? "Alarm set for"
-                        : "No alarm set"}
-                </Text>
-                <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={() => setShowPickerExample1(true)}>
-                    <View style={styles.touchableContainer}>
-                        {alarmStringExample1 !== null ? (
-                            <Text style={styles.alarmTextDark}>
-                                {alarmStringExample1}
-                            </Text>
-                        ) : null}
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => setShowPickerExample1(true)}>
-                            <View style={styles.buttonContainer}>
-                                <Text
-                                    style={[styles.button, styles.buttonDark]}>
-                                    {"Set Alarm 🔔"}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TimerPickerModal
-                    Audio={Audio}
-                    closeOnOverlayPress
-                    Haptics={Haptics}
-                    LinearGradient={LinearGradient}
-                    modalProps={{
-                        overlayOpacity: 0.2,
-                    }}
-                    modalTitle="Set Alarm"
-                    onCancel={() => setShowPickerExample1(false)}
-                    onConfirm={(pickedDuration) => {
-                        setAlarmStringExample1(formatTime(pickedDuration));
-                        setShowPickerExample1(false);
-                    }}
-                    setIsVisible={setShowPickerExample1}
-                    styles={{
-                        theme: "dark",
-                    }}
-                    visible={showPickerExample1}
-                />
-            </View>
-        );
-    }, [alarmStringExample1, screenWidth, showPickerExample1]);
+    // const renderExample1 = useMemo(() => {
+    //     return (
+    //         <View
+    //             style={[
+    //                 styles.container,
+    //                 styles.page1Container,
+    //                 { width: screenWidth },
+    //             ]}>
+    //             <Text style={styles.textDark}>
+    //                 {alarmStringExample1 !== null
+    //                     ? "Alarm set for"
+    //                     : "No alarm set"}
+    //             </Text>
+    //             <TouchableOpacity
+    //                 activeOpacity={0.7}
+    //                 onPress={() => setShowPickerExample1(true)}>
+    //                 <View style={styles.touchableContainer}>
+    //                     {alarmStringExample1 !== null ? (
+    //                         <Text style={styles.alarmTextDark}>
+    //                             {alarmStringExample1}
+    //                         </Text>
+    //                     ) : null}
+    //                     <TouchableOpacity
+    //                         activeOpacity={0.7}
+    //                         onPress={() => setShowPickerExample1(true)}>
+    //                         <View style={styles.buttonContainer}>
+    //                             <Text
+    //                                 style={[styles.button, styles.buttonDark]}>
+    //                                 {"Set Alarm 🔔"}
+    //                             </Text>
+    //                         </View>
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </TouchableOpacity>
+    //             <TimerPickerModal
+    //                 Audio={Audio}
+    //                 closeOnOverlayPress
+    //                 Haptics={Haptics}
+    //                 LinearGradient={LinearGradient}
+    //                 modalProps={{
+    //                     overlayOpacity: 0.2,
+    //                 }}
+    //                 modalTitle="Set Alarm"
+    //                 onCancel={() => setShowPickerExample1(false)}
+    //                 onConfirm={(pickedDuration) => {
+    //                     setAlarmStringExample1(formatTime(pickedDuration));
+    //                     setShowPickerExample1(false);
+    //                 }}
+    //                 setIsVisible={setShowPickerExample1}
+    //                 styles={{
+    //                     theme: "dark",
+    //                 }}
+    //                 visible={showPickerExample1}
+    //             />
+    //         </View>
+    //     );
+    // }, [alarmStringExample1, screenWidth, showPickerExample1]);
 
-    const renderExample2 = useMemo(() => {
-        return (
-            <View
-                style={[
-                    styles.container,
-                    styles.page2Container,
-                    { width: screenWidth },
-                ]}>
-                <Text style={styles.textLight}>
-                    {alarmStringExample2 !== null
-                        ? "Alarm set for"
-                        : "No alarm set"}
-                </Text>
-                <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={() => setShowPickerExample2(true)}>
-                    <View style={styles.touchableContainer}>
-                        {alarmStringExample2 !== null ? (
-                            <Text style={styles.alarmTextLight}>
-                                {alarmStringExample2}
-                            </Text>
-                        ) : null}
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => setShowPickerExample2(true)}>
-                            <View style={styles.buttonContainer}>
-                                <Text
-                                    style={[styles.button, styles.buttonLight]}>
-                                    {"Set Alarm 🔔"}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TimerPickerModal
-                    Audio={Audio}
-                    clickSoundAsset={require("./assets/custom_click.mp3")}
-                    closeOnOverlayPress
-                    Haptics={Haptics}
-                    LinearGradient={LinearGradient}
-                    modalTitle="Set Alarm"
-                    onCancel={() => setShowPickerExample2(false)}
-                    onConfirm={(pickedDuration) => {
-                        setAlarmStringExample2(formatTime(pickedDuration));
-                        setShowPickerExample2(false);
-                    }}
-                    setIsVisible={setShowPickerExample2}
-                    styles={{
-                        theme: "light",
-                    }}
-                    use12HourPicker
-                    visible={showPickerExample2}
-                />
-            </View>
-        );
-    }, [alarmStringExample2, screenWidth, showPickerExample2]);
+    // const renderExample2 = useMemo(() => {
+    //     return (
+    //         <View
+    //             style={[
+    //                 styles.container,
+    //                 styles.page2Container,
+    //                 { width: screenWidth },
+    //             ]}>
+    //             <Text style={styles.textLight}>
+    //                 {alarmStringExample2 !== null
+    //                     ? "Alarm set for"
+    //                     : "No alarm set"}
+    //             </Text>
+    //             <TouchableOpacity
+    //                 activeOpacity={0.7}
+    //                 onPress={() => setShowPickerExample2(true)}>
+    //                 <View style={styles.touchableContainer}>
+    //                     {alarmStringExample2 !== null ? (
+    //                         <Text style={styles.alarmTextLight}>
+    //                             {alarmStringExample2}
+    //                         </Text>
+    //                     ) : null}
+    //                     <TouchableOpacity
+    //                         activeOpacity={0.7}
+    //                         onPress={() => setShowPickerExample2(true)}>
+    //                         <View style={styles.buttonContainer}>
+    //                             <Text
+    //                                 style={[styles.button, styles.buttonLight]}>
+    //                                 {"Set Alarm 🔔"}
+    //                             </Text>
+    //                         </View>
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </TouchableOpacity>
+    //             <TimerPickerModal
+    //                 Audio={Audio}
+    //                 clickSoundAsset={require("./assets/custom_click.mp3")}
+    //                 closeOnOverlayPress
+    //                 Haptics={Haptics}
+    //                 LinearGradient={LinearGradient}
+    //                 modalTitle="Set Alarm"
+    //                 onCancel={() => setShowPickerExample2(false)}
+    //                 onConfirm={(pickedDuration) => {
+    //                     setAlarmStringExample2(formatTime(pickedDuration));
+    //                     setShowPickerExample2(false);
+    //                 }}
+    //                 setIsVisible={setShowPickerExample2}
+    //                 styles={{
+    //                     theme: "light",
+    //                 }}
+    //                 use12HourPicker
+    //                 visible={showPickerExample2}
+    //             />
+    //         </View>
+    //     );
+    // }, [alarmStringExample2, screenWidth, showPickerExample2]);
 
     const renderExample3 = useMemo(() => {
+        const pickerItems = [
+            { label: 1, value: 1 },
+            {
+                label: 2,
+                value: 2,
+            },
+            { label: 3, value: 3 },
+            { label: 4, value: 4 },
+            { label: 5, value: 5 },
+            { label: 6, value: 6 },
+            { label: 7, value: 7 },
+            { label: 8, value: 8 },
+            { label: 9, value: 9 },
+            { label: 10, value: 10 },
+            { label: 11, value: 11 },
+            { label: 12, value: 12, isDisabled: true },
+        ];
+
         return (
-            <LinearGradient
-                colors={["#202020", "#220578"]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
+            <View
                 style={[
                     styles.container,
                     styles.page3Container,
                     { width: screenWidth },
                 ]}>
-                <TimerPicker
+                <InfinitePicker
                     Audio={Audio}
                     Haptics={Haptics}
-                    hourLabel=":"
                     LinearGradient={LinearGradient}
                     MaskedView={MaskedView}
-                    minuteLabel=":"
                     padWithNItems={2}
-                    secondLabel=""
+                    pickerItems={pickerItems}
+                    onChange={(value) => {
+                        console.log("Selected value:", value);
+                    }}
                     styles={{
-                        theme: "dark",
                         backgroundColor: "transparent",
                         pickerItem: {
                             fontSize: 34,
@@ -232,113 +247,113 @@ export default function App() {
                         },
                     }}
                 />
-            </LinearGradient>
-        );
-    }, [screenWidth]);
-
-    const renderExample4 = useMemo(() => {
-        return (
-            <View
-                style={[
-                    styles.container,
-                    styles.page4Container,
-                    { width: screenWidth },
-                ]}>
-                <TimerPicker
-                    Audio={Audio}
-                    Haptics={Haptics}
-                    hideHours
-                    LinearGradient={LinearGradient}
-                    minuteLabel="min"
-                    padWithNItems={3}
-                    secondLabel="sec"
-                    styles={{
-                        theme: "light",
-                        pickerItem: {
-                            fontSize: 34,
-                        },
-                        pickerLabel: {
-                            fontSize: 26,
-                            right: -20,
-                        },
-                        pickerLabelContainer: {
-                            width: 60,
-                        },
-                        pickerItemContainer: {
-                            width: 150,
-                        },
-                    }}
-                />
             </View>
         );
     }, [screenWidth]);
 
-    const renderNavigationArrows = useMemo(() => {
-        return (
-            <>
-                {currentPageIndex !== 3 ? (
-                    <Pressable
-                        onPress={() => {
-                            LayoutAnimation.configureNext(
-                                LayoutAnimation.Presets.easeInEaseOut
-                            );
-                            setCurrentPageIndex((currentPageIndex) => {
-                                scrollViewRef.current?.scrollTo({
-                                    x: screenWidth * (currentPageIndex + 1),
-                                    animated: true,
-                                });
-                                return currentPageIndex + 1;
-                            });
-                        }}
-                        style={({ pressed }) => [
-                            styles.chevronPressable,
-                            { right: 8 },
-                            pressed && styles.chevronPressable_pressed,
-                        ]}>
-                        <Ionicons
-                            color={
-                                currentPageIndex % 2 !== 0
-                                    ? "#514242"
-                                    : "#F1F1F1"
-                            }
-                            name="chevron-forward"
-                            size={32}
-                        />
-                    </Pressable>
-                ) : null}
-                {currentPageIndex !== 0 ? (
-                    <Pressable
-                        onPress={() => {
-                            LayoutAnimation.configureNext(
-                                LayoutAnimation.Presets.easeInEaseOut
-                            );
-                            setCurrentPageIndex((currentPageIndex) => {
-                                scrollViewRef.current?.scrollTo({
-                                    x: screenWidth * (currentPageIndex - 1),
-                                    animated: true,
-                                });
-                                return currentPageIndex - 1;
-                            });
-                        }}
-                        style={({ pressed }) => [
-                            styles.chevronPressable,
-                            { left: 8 },
-                            pressed && styles.chevronPressable_pressed,
-                        ]}>
-                        <Ionicons
-                            color={
-                                currentPageIndex % 2 !== 0
-                                    ? "#514242"
-                                    : "#F1F1F1"
-                            }
-                            name="chevron-back"
-                            size={32}
-                        />
-                    </Pressable>
-                ) : null}
-            </>
-        );
-    }, [currentPageIndex, screenWidth]);
+    // const renderExample4 = useMemo(() => {
+    //     return (
+    //         <View
+    //             style={[
+    //                 styles.container,
+    //                 styles.page4Container,
+    //                 { width: screenWidth },
+    //             ]}>
+    //             <TimerPicker
+    //                 Audio={Audio}
+    //                 Haptics={Haptics}
+    //                 hideHours
+    //                 LinearGradient={LinearGradient}
+    //                 minuteLabel="min"
+    //                 padWithNItems={3}
+    //                 secondLabel="sec"
+    //                 styles={{
+    //                     theme: "light",
+    //                     pickerItem: {
+    //                         fontSize: 34,
+    //                     },
+    //                     pickerLabel: {
+    //                         fontSize: 26,
+    //                         right: -20,
+    //                     },
+    //                     pickerLabelContainer: {
+    //                         width: 60,
+    //                     },
+    //                     pickerItemContainer: {
+    //                         width: 150,
+    //                     },
+    //                 }}
+    //             />
+    //         </View>
+    //     );
+    // }, [screenWidth]);
+
+    // const renderNavigationArrows = useMemo(() => {
+    //     return (
+    //         <>
+    //             {currentPageIndex !== 3 ? (
+    //                 <Pressable
+    //                     onPress={() => {
+    //                         LayoutAnimation.configureNext(
+    //                             LayoutAnimation.Presets.easeInEaseOut
+    //                         );
+    //                         setCurrentPageIndex((currentPageIndex) => {
+    //                             scrollViewRef.current?.scrollTo({
+    //                                 x: screenWidth * (currentPageIndex + 1),
+    //                                 animated: true,
+    //                             });
+    //                             return currentPageIndex + 1;
+    //                         });
+    //                     }}
+    //                     style={({ pressed }) => [
+    //                         styles.chevronPressable,
+    //                         { right: 8 },
+    //                         pressed && styles.chevronPressable_pressed,
+    //                     ]}>
+    //                     <Ionicons
+    //                         color={
+    //                             currentPageIndex % 2 !== 0
+    //                                 ? "#514242"
+    //                                 : "#F1F1F1"
+    //                         }
+    //                         name="chevron-forward"
+    //                         size={32}
+    //                     />
+    //                 </Pressable>
+    //             ) : null}
+    //             {currentPageIndex !== 0 ? (
+    //                 <Pressable
+    //                     onPress={() => {
+    //                         LayoutAnimation.configureNext(
+    //                             LayoutAnimation.Presets.easeInEaseOut
+    //                         );
+    //                         setCurrentPageIndex((currentPageIndex) => {
+    //                             scrollViewRef.current?.scrollTo({
+    //                                 x: screenWidth * (currentPageIndex - 1),
+    //                                 animated: true,
+    //                             });
+    //                             return currentPageIndex - 1;
+    //                         });
+    //                     }}
+    //                     style={({ pressed }) => [
+    //                         styles.chevronPressable,
+    //                         { left: 8 },
+    //                         pressed && styles.chevronPressable_pressed,
+    //                     ]}>
+    //                     <Ionicons
+    //                         color={
+    //                             currentPageIndex % 2 !== 0
+    //                                 ? "#514242"
+    //                                 : "#F1F1F1"
+    //                         }
+    //                         name="chevron-back"
+    //                         size={32}
+    //                     />
+    //                 </Pressable>
+    //             ) : null}
+    //         </>
+    //     );
+    // }, [currentPageIndex, screenWidth]);
 
     return (
         <>
@@ -347,12 +362,12 @@ export default function App() {
                 horizontal
                 onMomentumScrollEnd={onMomentumScrollEnd}
                 pagingEnabled>
-                {renderExample1}
-                {renderExample2}
+                {/* {renderExample1} */}
+                {/* {renderExample2} */}
                 {renderExample3}
-                {renderExample4}
+                {/* {renderExample4} */}
             </ScrollView>
-            {renderNavigationArrows}
+            {/* {renderNavigationArrows} */}
         </>
     );
 }
@@ -369,7 +384,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F1F1F1",
     },
     page3Container: {
-        flex: 1,
+        backgroundColor: "#F1F1F1",
     },
     page4Container: {
         backgroundColor: "#F1F1F1",

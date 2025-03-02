@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
 import type { TextStyle, ViewStyle } from "react-native";
 
-export interface CustomTimerPickerStyles {
+export interface CustomPickerStyles {
     backgroundColor?: string;
     disabledPickerContainer?: ViewStyle;
     disabledPickerItem?: TextStyle;
-    durationScrollFlatList?: ViewStyle;
-    durationScrollFlatListContainer?: ViewStyle;
-    durationScrollFlatListContentContainer?: ViewStyle;
     pickerAmPmContainer?: ViewStyle;
     pickerAmPmLabel?: TextStyle;
     pickerContainer?: ViewStyle & { backgroundColor?: string };
+    pickerFlatList?: ViewStyle;
+    pickerFlatListContainer?: ViewStyle;
+    pickerFlatListContentContainer?: ViewStyle;
     pickerGradientOverlay?: ViewStyle;
     pickerItem?: TextStyle;
     pickerItemContainer?: ViewStyle & { height?: number };
@@ -25,19 +25,24 @@ const DARK_MODE_TEXT_COLOR = "#E9E9E9";
 const LIGHT_MODE_BACKGROUND_COLOR = "#F1F1F1";
 const LIGHT_MODE_TEXT_COLOR = "#1B1B1uB";
 
-export const generateStyles = (
-    customStyles: CustomTimerPickerStyles | undefined,
-) =>
+export const generateStyles = (customStyles: CustomPickerStyles | undefined) =>
     StyleSheet.create({
-        pickerContainer: {
-            flexDirection: "row",
-            marginRight: "8%",
+        pickerFlatListContainer: {
+            overflow: "visible",
+            ...customStyles?.pickerFlatListContainer,
             backgroundColor:
                 customStyles?.backgroundColor ??
                 (customStyles?.theme === "dark"
                     ? DARK_MODE_BACKGROUND_COLOR
                     : LIGHT_MODE_BACKGROUND_COLOR),
-            ...customStyles?.pickerContainer,
+        },
+        pickerFlatList: {
+            minWidth: 1,
+            width: "300%",
+            ...customStyles?.pickerFlatList,
+        },
+        pickerFlatListContentContainer: {
+            ...customStyles?.pickerFlatListContentContainer,
         },
         pickerLabelContainer: {
             position: "absolute",
@@ -83,27 +88,6 @@ export const generateStyles = (
             ...customStyles?.text,
             ...customStyles?.pickerItem,
         },
-        pickerAmPmContainer: {
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            justifyContent: "center",
-            ...customStyles?.pickerLabelContainer,
-            ...customStyles?.pickerAmPmContainer,
-        },
-        pickerAmPmLabel: {
-            fontSize: 18,
-            fontWeight: "bold",
-            marginTop: (customStyles?.pickerItem?.fontSize ?? 25) / 6,
-            color:
-                customStyles?.theme === "dark"
-                    ? DARK_MODE_TEXT_COLOR
-                    : LIGHT_MODE_TEXT_COLOR,
-            ...customStyles?.text,
-            ...customStyles?.pickerLabel,
-            ...customStyles?.pickerAmPmLabel,
-        },
         disabledPickerContainer: {
             opacity: 0.4,
             ...customStyles?.disabledPickerContainer,
@@ -120,17 +104,5 @@ export const generateStyles = (
             width: "100%",
             height: "100%",
             ...customStyles?.pickerGradientOverlay,
-        },
-        durationScrollFlatList: {
-            minWidth: 1,
-            width: "300%",
-            ...customStyles?.durationScrollFlatList,
-        },
-        durationScrollFlatListContainer: {
-            overflow: "visible",
-            ...customStyles?.durationScrollFlatListContainer,
-        },
-        durationScrollFlatListContentContainer: {
-            ...customStyles?.durationScrollFlatListContentContainer,
         },
     });

@@ -7,7 +7,9 @@ import type {
     FlatListProps as RNFlatListProps,
 } from "react-native";
 
-import type { generateStyles } from "../TimerPicker/styles";
+import type {
+    CustomPickerStyles,
+} from "../InfinitePicker/styles";
 
 export type CustomFlatList = <ItemT = any>(
     props: React.PropsWithChildren<
@@ -16,40 +18,42 @@ export type CustomFlatList = <ItemT = any>(
     ref: React.ForwardedRef<RNFlatList<ItemT>>
 ) => React.ReactElement | null;
 
-export interface DurationScrollProps {
+export type ItemValue = string | number | null;
+
+export interface PickerItem {
+    isDisabled?: boolean;
+    label: string | number;
+    value: ItemValue;
+}
+
+export interface InfinitePickerProps {
     Audio?: any;
     FlatList?: CustomFlatList;
     Haptics?: any;
     LinearGradient?: any;
     MaskedView?: any;
-    aggressivelyGetLatestDuration: boolean;
+    aggressivelyGetLatestValue?: boolean;
     allowFontScaling?: boolean;
     amLabel?: string;
     clickSoundAsset?: SoundAssetType;
     disableInfiniteScroll?: boolean;
-    initialValue?: number;
-    interval: number;
-    is12HourPicker?: boolean;
+    initialValue?: ItemValue;
     isDisabled?: boolean;
     label?: string | React.ReactElement;
-    limit?: LimitType;
-    maximumValue: number;
-    onDurationChange: (duration: number) => void;
-    padNumbersWithZero?: boolean;
+    onChange: (value: PickerItem["value"]) => void;
     padWithNItems: number;
     pickerFeedback?: () => void | Promise<void>;
     pickerGradientOverlayProps?: Partial<LinearGradientProps>;
-    pmLabel?: string;
-    repeatNumbersNTimes?: number;
-    repeatNumbersNTimesNotExplicitlySet: boolean;
-    styles: ReturnType<typeof generateStyles>;
+    pickerItems: PickerItem[];
+    repeatValuesNTimes?: number;
+    styles: CustomPickerStyles;
     testID?: string;
 }
 
-export interface DurationScrollRef {
-    latestDuration: MutableRefObject<number>;
+export interface InfinitePickerRef {
+    latestValue: MutableRefObject<ItemValue>;
     reset: (options?: { animated?: boolean }) => void;
-    setValue: (value: number, options?: { animated?: boolean }) => void;
+    setValue: (value: ItemValue, options?: { animated?: boolean }) => void;
 }
 
 type LinearGradientPoint = {
@@ -65,8 +69,8 @@ export type LinearGradientProps = React.ComponentProps<typeof View> & {
 };
 
 export type LimitType = {
-    max?: number;
-    min?: number;
+    maxIndex?: number;
+    minIndex?: number;
 };
 
 export type SoundAssetType =
